@@ -10,31 +10,47 @@ There is no source code, build system, test suite, or linting. This is a structu
 
 ## Directory Structure
 
-- `2025/` — Active working documents for the current certification cycle
-  - `AUDITORIA INTERNA 2025/` — Internal audit reports and plans
-  - `TonniNova/` — Client-specific document set
-    - `SGSI/` — Final, approved, and signed documents (organized by type)
-    - `WIP/` — Work-in-progress drafts
-    - `Gap Analysis/` — Gap analysis deliverables
-- `EVIDENCIES/` — Screenshot evidence for ENS control compliance
-- `NORMATIVA/` — Regulatory reference material
+The live document structure follows ENS best practices, organized by document type:
+
+```
+ENS/
+├── 01_POLITICAS/          # Strategic security policies (D01-D03, D10)
+├── 02_NORMAS/             # Standards, instructions, forms (I01-I05)
+├── 03_PROCEDIMIENTOS/     # Operational procedures (P01-P05, software dev)
+├── 04_REGISTROS/          # Registers and compliance records (D00, D04-D13, procurement)
+├── 05_ROLES/              # Job role descriptions (DPT01-DPT05)
+├── 06_EVIDENCIAS/         # Proof of implementation
+│   ├── personal/          # Signed employee documents (PDFs)
+│   ├── proveedores/       # Vendor/cloud certifications (Azure, GCP)
+│   └── controles/         # Control implementation screenshots
+├── 07_AUDITORIA/          # Audit documents, reports, accreditations
+├── 08_GOBERNANZA/         # Committee acts, org charts, appointments, awareness
+├── 09_NORMATIVA_EXTERNA/  # External regulations, CCN-STIC references
+├── PLANTILLAS/            # Document templates
+└── snapshots/             # Frozen yearly snapshots
+    ├── 2025/              # Original 2025 certification cycle (frozen)
+    └── gap_analysis/      # Initial TonniNova gap analysis deliverables
+```
 
 ## Document Naming Convention
 
-| Prefix | Type | Examples |
-|--------|------|---------|
-| `D##` | Core ISMS documents | D01 Security Policy, D04 Statement of Applicability, D06 Risk Register |
-| `I##` | Forms and instructions | I01 Security Normative, I02 Data Protection Annex, I05 BYOD Auth |
-| `P##` | Procedures | P01 Risk Management, P03 Change Management, P05 Incident Management |
-| `DPT##` | Job role descriptions | DPT01 CISO, DPT02 CTO, DPT03 DPO |
-| `AUD##` | Audit documents | AUD02 System Description, AUD13 Security Architecture |
+| Prefix | Type | Location |
+|--------|------|----------|
+| `D##` | Core ISMS documents | `01_POLITICAS/` (policies) or `04_REGISTROS/` (registers/records) |
+| `I##` | Forms and instructions | `02_NORMAS/` |
+| `P##` | Procedures | `03_PROCEDIMIENTOS/` |
+| `DPT##` | Job role descriptions | `05_ROLES/` (editable .docx) or `06_EVIDENCIAS/personal/` (signed .pdf) |
+| `AUD##` | Audit documents | `07_AUDITORIA/` |
 
 ## Workflow
 
-- **WIP/** contains active drafts being developed
-- **SGSI/** contains final, approved, signed documents
-- **Pendent signar [Name]/** holds documents awaiting a specific person's signature
-- Evidence screenshots go in **EVIDENCIES/** or under `SGSI/REGISTRES/`
+- **Live folders** (`01_POLITICAS/` through `09_NORMATIVA_EXTERNA/`) contain the current, authoritative versions of all documents
+- **Editable .docx** files go in the categorized live folders
+- **Signed .pdf** files go in `06_EVIDENCIAS/personal/`
+- **Vendor certifications** go in `06_EVIDENCIAS/proveedores/`
+- **Control evidence screenshots** go in `06_EVIDENCIAS/controles/`
+- **Templates** go in `PLANTILLAS/`
+- **snapshots/** contains frozen yearly archives — do not modify
 
 ## Languages
 
@@ -49,5 +65,6 @@ There is no source code, build system, test suite, or linting. This is a structu
 
 ## Git Notes
 
-- Binary files (PDF, DOCX, XLSX, Pages) are tracked directly in git
-- `.gitignore` is effectively empty
+- Binary files (PDF, DOCX, XLSX) are tracked directly in git
+- `.gitignore` excludes: `.DS_Store`, Office temp files (`~$*`), `.pages` files, and credential files
+- `snapshots/` preserves the original document structure from each certification cycle

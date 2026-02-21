@@ -1,2 +1,11 @@
-# Ignore all subdirectories
-# */
+# OS files
+.DS_Store
+
+# Office temp/lock files
+~$*
+
+# Apple Pages (use PDF/DOCX instead)
+*.pages
+
+# Sensitive files
+Credenciales de acceso*
