@@ -4,7 +4,9 @@
       "WebSearch",
       "WebFetch(domain:ens.ccn.cni.es)",
       "Bash(git mv:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(node:*)",
+      "Bash(python3:*)"
     ]
   }
 }
