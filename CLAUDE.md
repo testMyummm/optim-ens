@@ -24,7 +24,7 @@ ENS/
 │   ├── proveedores/       # Vendor/cloud certifications (Azure, GCP)
 │   └── controles/         # Control implementation screenshots
 ├── 07_AUDITORIA/          # Audit documents, reports, accreditations
-├── 08_GOBERNANZA/         # Committee acts, org charts, appointments, awareness
+├── 08_GOBERNANZA/         # Committee acts, org charts, appointments, awareness, onboarding
 ├── 09_NORMATIVA_EXTERNA/  # External regulations, CCN-STIC references
 ├── PLANTILLAS/            # Document templates
 └── snapshots/             # Frozen yearly snapshots
@@ -41,6 +41,7 @@ ENS/
 | `P##` | Procedures | `03_PROCEDIMIENTOS/` |
 | `DPT##` | Job role descriptions | `05_ROLES/` (editable .docx) or `06_EVIDENCIAS/personal/` (signed .pdf) |
 | `AUD##` | Audit documents | `07_AUDITORIA/` |
+| (descriptive) | Governance documents (acts, org charts, onboarding guides) | `08_GOBERNANZA/` |
 
 ## Workflow
 
@@ -50,6 +51,7 @@ ENS/
 - **Vendor certifications** go in `06_EVIDENCIAS/proveedores/`
 - **Control evidence screenshots** go in `06_EVIDENCIAS/controles/`
 - **Templates** go in `PLANTILLAS/`
+- **Governance documents** (committee acts, onboarding guides, awareness plans) go in `08_GOBERNANZA/` using descriptive names
 - **snapshots/** contains frozen yearly archives — do not modify
 
 ## Languages
