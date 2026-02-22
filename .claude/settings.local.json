@@ -1,14 +1,8 @@
 {
-  "permissions": {
-    "allow": [
-      "WebSearch",
-      "WebFetch(domain:ens.ccn.cni.es)",
-      "Bash(git mv:*)",
-      "Bash(git add:*)",
-      "Bash(node:*)",
-      "Bash(python3:*)",
-      "Bash(ls:*)",
-      "Bash(mkdir:*)"
-    ]
-  }
+	"permissions": {
+		"allow": ["WebSearch", "WebFetch(domain:ens.ccn.cni.es)", "Bash(git mv:*)", "Bash(git add:*)", "Bash(node:*)", "Bash(python3:*)", "Bash(ls:*)", "Bash(mkdir:*)"]
+	},
+	"enabledPlugins": {
+		"superpowers@claude-plugins-official": true
+	}
 }
