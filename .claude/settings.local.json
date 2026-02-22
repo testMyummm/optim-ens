@@ -1,8 +1,18 @@
 {
-	"permissions": {
-		"allow": ["WebSearch", "WebFetch(domain:ens.ccn.cni.es)", "Bash(git mv:*)", "Bash(git add:*)", "Bash(node:*)", "Bash(python3:*)", "Bash(ls:*)", "Bash(mkdir:*)"]
-	},
-	"enabledPlugins": {
-		"superpowers@claude-plugins-official": true
-	}
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:ens.ccn.cni.es)",
+      "Bash(git mv:*)",
+      "Bash(git add:*)",
+      "Bash(node:*)",
+      "Bash(python3:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)"
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "atlassian@claude-plugins-official": true
+  }
 }
