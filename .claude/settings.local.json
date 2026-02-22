@@ -12,7 +12,7 @@
     ]
   },
   "enabledPlugins": {
-    "superpowers@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": false,
     "atlassian@claude-plugins-official": true
   }
 }

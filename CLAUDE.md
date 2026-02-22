@@ -65,6 +65,10 @@ ENS/
 - **Google Cloud Platform** — ENS certified
 - **Atlassian** (Jira + Confluence) — Project management and documentation
 
+## Atlassian Access
+
+- When using Atlassian tools, only access Confluence space **ENSCORP**. No other spaces are authorized.
+
 ## Git Notes
 
 - Binary files (PDF, DOCX, XLSX) are tracked directly in git
