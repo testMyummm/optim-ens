@@ -26,6 +26,7 @@ ENS/
 ├── 07_AUDITORIA/          # Audit documents, reports, accreditations
 ├── 08_GOBERNANZA/         # Committee acts, org charts, appointments, awareness, onboarding
 ├── 09_NORMATIVA_EXTERNA/  # External regulations, CCN-STIC references
+├── 10_PROCEDIMIENTOS_APLICADOS/ # Applied procedures / SOPs
 ├── PLANTILLAS/            # Document templates
 └── snapshots/             # Frozen yearly snapshots
     ├── 2025/              # Original 2025 certification cycle (frozen)
@@ -68,6 +69,28 @@ ENS/
 ## Atlassian Access
 
 - When using Atlassian tools, only access Confluence space **ENSCORP**. No other spaces are authorized.
+
+## Confluence Integration (ENSCORP)
+
+The ENSCORP Confluence space is the **living knowledge base** for ENS documentation. The local git repo is the **canonical store** for formal binary documents (.docx, .xlsx, .pdf).
+
+### Content Types
+
+| Type | Source of Truth | Where to Edit | Examples |
+|------|----------------|---------------|----------|
+| **Living** | Confluence | Edit in Confluence; export .docx to git periodically | Procedures (03), Governance (08), SOPs (10), Evidence (06) |
+| **Stub** | Git (.docx/.xlsx/.pdf) | Edit locally; Confluence page has metadata + link | Policies (01), Norms (02), Roles (05), Audit (07), External Regs (09) |
+| **Mixed** | Both | Spreadsheets in git, descriptions in Confluence | Registros (04) |
+
+### Mapping File
+
+`confluence_map.md` at the repo root tracks the relationship between local files and Confluence page IDs. Update it whenever pages are created or reorganized.
+
+### Rules
+
+- Living pages: Content is authored and maintained in Confluence. Git stores a .docx export for offline/audit purposes.
+- Stub pages: Content is authored locally as .docx/.xlsx. Confluence page shows metadata, summary, and a reference note.
+- When creating new documents, add entries to both the appropriate local folder AND `confluence_map.md`.
 
 ## Git Notes
 
