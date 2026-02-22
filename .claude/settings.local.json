@@ -8,11 +8,15 @@
       "Bash(node:*)",
       "Bash(python3:*)",
       "Bash(ls:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "mcp__plugin_atlassian_atlassian__getConfluenceSpaces",
+      "mcp__plugin_atlassian_atlassian__getPagesInConfluenceSpace",
+      "mcp__plugin_atlassian_atlassian__getConfluencePageDescendants",
+      "mcp__plugin_atlassian_atlassian__getConfluencePage"
     ]
   },
   "enabledPlugins": {
-    "superpowers@claude-plugins-official": false,
+    "superpowers@claude-plugins-official": true,
     "atlassian@claude-plugins-official": true
   }
 }
