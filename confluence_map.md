@@ -137,6 +137,8 @@ These are top-level section pages that act as parents for the document pages bel
 | `08_GOBERNANZA/Pla conscienciacio seguretat.docx` | Plan de Concienciacion Seguridad | 7307610 | living | confluence -> git |
 | `08_GOBERNANZA/ROADMAP learn CTO 2026 Gemini.docx` | _(included in Concienciacion above)_ | -- | -- | -- |
 | `08_GOBERNANZA/Guia de Incorporacion - Principios ENS.docx` | Guia de Incorporacion — Principios ENS | 7274738 | living | confluence -> git |
+| `08_GOBERNANZA/Presentacion ENS equipo optimTech.docx` | Presentacion ENS equipo optimTech | 9666562 | living | confluence -> git |
+| `08_GOBERNANZA/Presentacion ENS equipo optimTech.pptx` | _(included above)_ | -- | -- | -- |
 
 ### 09_NORMATIVA_EXTERNA (stub, git -> confluence)
 

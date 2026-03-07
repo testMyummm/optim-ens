@@ -23,7 +23,12 @@
       "Bash(echo:*)",
       "mcp__plugin_atlassian_atlassian__getAccessibleAtlassianResources",
       "mcp__plugin_atlassian_atlassian__search",
-      "mcp__plugin_atlassian_atlassian__getVisibleJiraProjects"
+      "mcp__plugin_atlassian_atlassian__getVisibleJiraProjects",
+      "Bash(python:*)",
+      "Bash(cp /tmp/template_unpacked/word/media/image1.png /tmp/optimtech_logo.png)",
+      "Read(//tmp/**)",
+      "Bash(npm:*)",
+      "Bash(NODE_PATH=/opt/homebrew/lib/node_modules node:*)"
     ]
   },
   "enabledPlugins": {
