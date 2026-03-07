@@ -28,7 +28,9 @@
       "Bash(cp /tmp/template_unpacked/word/media/image1.png /tmp/optimtech_logo.png)",
       "Read(//tmp/**)",
       "Bash(npm:*)",
-      "Bash(NODE_PATH=/opt/homebrew/lib/node_modules node:*)"
+      "Bash(NODE_PATH=/opt/homebrew/lib/node_modules node:*)",
+      "Bash(pandoc:*)",
+      "Read(//private/tmp/**)"
     ]
   },
   "enabledPlugins": {
