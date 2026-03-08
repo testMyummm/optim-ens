@@ -37,7 +37,9 @@
       "Bash(PYTHONPATH=\"/Users/myum/Documents/WORK/optimTech/ENS/.agents/skills/docx/scripts/office\" python3:*)",
       "Bash(export:*)",
       "Read(//Applications/**)",
-      "Bash(mdfind -name soffice)"
+      "Bash(mdfind -name soffice)",
+      "Bash(cp:*)",
+      "Bash(md5:*)"
     ]
   },
   "enabledPlugins": {
