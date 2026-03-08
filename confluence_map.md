@@ -61,6 +61,7 @@ These are top-level section pages that act as parents for the document pages bel
 | `02_NORMAS/I03 Registro entrega dispositivos de trabajo.docx` | I03 Registro entrega dispositivos de trabajo | 7078043 | stub | git -> confluence |
 | `02_NORMAS/I04 Registro devolucion dispositivos de trabajo.docx` | I04 Registro devolucion dispositivos de trabajo | 7012545 | stub | git -> confluence |
 | `02_NORMAS/I05 Autorizacion uso equipos particulares BYOD.docx` | I05 Autorizacion uso equipos particulares BYOD | 7012564 | stub | git -> confluence |
+| `02_NORMAS/I06 Acuerdo de Nivel de Servicio.docx` | I06 Acuerdo de Nivel de Servicio (SLA) | 9994244 | stub | git -> confluence |
 
 ### 03_PROCEDIMIENTOS (living, confluence -> git)
 
