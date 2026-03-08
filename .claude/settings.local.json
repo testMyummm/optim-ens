@@ -30,7 +30,11 @@
       "Bash(npm:*)",
       "Bash(NODE_PATH=/opt/homebrew/lib/node_modules node:*)",
       "Bash(pandoc:*)",
-      "Read(//private/tmp/**)"
+      "Read(//private/tmp/**)",
+      "Bash(markitdown:*)",
+      "Bash(pip3 list:*)",
+      "Bash(pip3 install:*)",
+      "Bash(PYTHONPATH=\"/Users/myum/Documents/WORK/optimTech/ENS/.agents/skills/docx/scripts/office\" python3:*)"
     ]
   },
   "enabledPlugins": {

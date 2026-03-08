@@ -102,6 +102,8 @@ These are top-level section pages that act as parents for the document pages bel
 | `05_ROLES/DPT03 - Responsable de proteccion de datos.docx` | DPT03 DPO — Responsable de Proteccion de Datos | 7307439 | stub | git -> confluence |
 | `05_ROLES/DPT04 - Director General-CEO.docx` | DPT04 CEO — Director General | 7274641 | stub | git -> confluence |
 | `05_ROLES/DPT05 - Auditor interno.docx` | DPT05 Auditor Interno | 7078138 | stub | git -> confluence |
+| `05_ROLES/DPT06 - Comercial-Ventas.docx` | DPT06 Comercial/Ventas — Descripcion de Puesto | 9863171 | stub | git -> confluence |
+| `05_ROLES/DPT07 - Marketing.docx` | DPT07 Marketing — Descripcion de Puesto | 9863191 | stub | git -> confluence |
 
 ### 06_EVIDENCIAS (living, confluence -> git)
 
@@ -153,6 +155,8 @@ These are top-level section pages that act as parents for the document pages bel
 | Local Path | Confluence Page Title | Page ID | Type | Sync |
 |------------|-----------------------|---------|------|------|
 | `10_PROCEDIMIENTOS_APLICADOS/backup_recuperacion/PA-BKP-001 Backup y Restauracion Confluence Cloud.md` | PA-BKP-001 Backup y Restauracion Confluence Cloud | 7012775 | living | confluence -> git |
+| `10_PROCEDIMIENTOS_APLICADOS/gestion_accesos/PA-ACC-001 Procedimiento de Alta de Personal.md` | PA-ACC-001 Procedimiento de Alta de Personal | 9895937 | living | confluence -> git |
+| `10_PROCEDIMIENTOS_APLICADOS/gestion_endpoints/PA-EPT-001 Adquisicion y Configuracion MacBook.md` | PA-EPT-001 Adquisicion y Configuracion MacBook | 9797636 | living | confluence -> git |
 | _(Confluence-only)_ | Acta de Prueba de Restauracion | 7372903 | living | confluence -> git |
 
 ### PLANTILLAS (stub, git -> confluence)
