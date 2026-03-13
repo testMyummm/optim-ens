@@ -1,0 +1,55 @@
+name: Sync docs to SharePoint + Confluence
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '01_POLITICAS/**'
+      - '02_NORMAS/**'
+      - '03_PROCEDIMIENTOS/**'
+      - '04_REGISTROS/**'
+      - '05_ROLES/**'
+      - '06_EVIDENCIAS/**'
+      - '07_AUDITORIA/**'
+      - '08_GOBERNANZA/**'
+      - '09_NORMATIVA_EXTERNA/**'
+      - '10_PROCEDIMIENTOS_APLICADOS/**'
+      - 'PLANTILLAS/**'
+  workflow_dispatch:
+    inputs:
+      sync_all:
+        description: 'Sync ALL files (not just changed)'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # need HEAD~1 for diff
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Sync to SharePoint and Confluence
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          CONFLUENCE_USER: ${{ secrets.CONFLUENCE_USER }}
+          CONFLUENCE_API_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
+        run: |
+          if [ "${{ inputs.sync_all }}" = "true" ]; then
+            python scripts/sync_sharepoint.py --all
+          else
+            python scripts/sync_sharepoint.py
+          fi
