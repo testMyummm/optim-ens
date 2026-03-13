@@ -61,6 +61,7 @@ These are top-level section pages that act as parents for the document pages bel
 | `02_NORMAS/I03 Registro entrega dispositivos de trabajo.docx` | I03 Registro entrega dispositivos de trabajo | 7078043 | stub | git -> confluence |
 | `02_NORMAS/I04 Registro devolucion dispositivos de trabajo.docx` | I04 Registro devolucion dispositivos de trabajo | 7012545 | stub | git -> confluence |
 | `02_NORMAS/I05 Autorizacion uso equipos particulares BYOD.docx` | I05 Autorizacion uso equipos particulares BYOD | 7012564 | stub | git -> confluence |
+| `02_NORMAS/I06 Acuerdo de Nivel de Servicio.docx` | I06 Acuerdo de Nivel de Servicio (SLA) | 9994244 | stub | git -> confluence |
 
 ### 03_PROCEDIMIENTOS (living, confluence -> git)
 
@@ -89,6 +90,7 @@ These are top-level section pages that act as parents for the document pages bel
 | `04_REGISTROS/Adquisicion Atlassian.docx` | Adquisicion Atlassian | 7274603 | stub | git -> confluence |
 | `04_REGISTROS/Adquisicion Azure.docx` | Adquisicion Azure | 7078100 | stub | git -> confluence |
 | `04_REGISTROS/Adquisicion GCP.docx` | Adquisicion GCP | 7012640 | stub | git -> confluence |
+| `04_REGISTROS/Calendario_ENS_2026.xlsx` | Calendario ENS 2026 (Excel) | -- | stub | git -> confluence |
 | _(Confluence-only)_ | CVSS | 7372908 | living | confluence -> git |
 | _(Confluence-only)_ | Valoracion CIDTA escenario webApp | 7372880 | living | confluence -> git |
 
@@ -101,6 +103,8 @@ These are top-level section pages that act as parents for the document pages bel
 | `05_ROLES/DPT03 - Responsable de proteccion de datos.docx` | DPT03 DPO — Responsable de Proteccion de Datos | 7307439 | stub | git -> confluence |
 | `05_ROLES/DPT04 - Director General-CEO.docx` | DPT04 CEO — Director General | 7274641 | stub | git -> confluence |
 | `05_ROLES/DPT05 - Auditor interno.docx` | DPT05 Auditor Interno | 7078138 | stub | git -> confluence |
+| `05_ROLES/DPT06 - Comercial-Ventas.docx` | DPT06 Comercial/Ventas — Descripcion de Puesto | 9863171 | stub | git -> confluence |
+| `05_ROLES/DPT07 - Marketing.docx` | DPT07 Marketing — Descripcion de Puesto | 9863191 | stub | git -> confluence |
 
 ### 06_EVIDENCIAS (living, confluence -> git)
 
@@ -137,6 +141,9 @@ These are top-level section pages that act as parents for the document pages bel
 | `08_GOBERNANZA/Pla conscienciacio seguretat.docx` | Plan de Concienciacion Seguridad | 7307610 | living | confluence -> git |
 | `08_GOBERNANZA/ROADMAP learn CTO 2026 Gemini.docx` | _(included in Concienciacion above)_ | -- | -- | -- |
 | `08_GOBERNANZA/Guia de Incorporacion - Principios ENS.docx` | Guia de Incorporacion — Principios ENS | 7274738 | living | confluence -> git |
+| `08_GOBERNANZA/Presentacion ENS equipo optimTech.docx` | Presentacion ENS equipo optimTech | 9666562 | living | confluence -> git |
+| `08_GOBERNANZA/Presentacion ENS equipo optimTech.pptx` | _(included above)_ | -- | -- | -- |
+| `08_GOBERNANZA/Calendario_ENS_2026.docx` | Calendario ENS 2026 | 9764866 | living | confluence -> git |
 
 ### 09_NORMATIVA_EXTERNA (stub, git -> confluence)
 
@@ -149,6 +156,8 @@ These are top-level section pages that act as parents for the document pages bel
 | Local Path | Confluence Page Title | Page ID | Type | Sync |
 |------------|-----------------------|---------|------|------|
 | `10_PROCEDIMIENTOS_APLICADOS/backup_recuperacion/PA-BKP-001 Backup y Restauracion Confluence Cloud.md` | PA-BKP-001 Backup y Restauracion Confluence Cloud | 7012775 | living | confluence -> git |
+| `10_PROCEDIMIENTOS_APLICADOS/gestion_accesos/PA-ACC-001 Procedimiento de Alta de Personal.md` | PA-ACC-001 Procedimiento de Alta de Personal | 9895937 | living | confluence -> git |
+| `10_PROCEDIMIENTOS_APLICADOS/gestion_endpoints/PA-EPT-001 Adquisicion y Configuracion MacBook.md` | PA-EPT-001 Adquisicion y Configuracion MacBook | 9797636 | living | confluence -> git |
 | _(Confluence-only)_ | Acta de Prueba de Restauracion | 7372903 | living | confluence -> git |
 
 ### PLANTILLAS (stub, git -> confluence)
@@ -164,24 +173,3 @@ These are top-level section pages that act as parents for the document pages bel
 | _(Confluence-only, needs content restoration)_ | Plantilla: Registro de Incidentes | 7372875 | living | confluence -> git |
 
 ---
-
-### 99.Legacy (pending cleanup)
-
-The following pages remain in 99.Legacy and require manual action:
-
-| Confluence Page Title | Page ID | Action Required |
-|-----------------------|---------|-----------------|
-| Duplicate of Control 1.X | 7372895 | Delete (empty duplicate) |
-| Control 1.X | 7372848 | Delete (content covered by D06 + P01) |
-| Checklist borrador (draft) | 7372923 | Delete (published as 7078215 in 07.Auditoria) |
-| Pol 2.6 -- Desarrollo Seguro | 7372820 | Delete or archive (content merged into 7307572) |
-| Pol 2.7 -- Proveedores y Terceros | 7372830 | Delete or archive (content merged into 7307515) |
-| Pol 2.8 -- Proteccion de Datos | 7372815 | Delete or archive (content added to D10 .docx) |
-| Pol 2.9 -- Gestion de Cambios | 7372841 | Delete or archive (content merged into 7012735) |
-| Pol 2.10 -- Clasificacion de la Informacion | 7372810 | Delete or archive (content added to D02 .docx) |
-| Altas, bajas y modificaciones | 7372805 | Delete or archive (content merged into 7307534) |
-| Gestion de Accesos | 7372890 | Delete or archive (content merged into 7307534) |
-| Vulnerabilidades y Parches | 7372918 | Delete or archive (content merged into 7307553) |
-
-**Empty folder pages** (cannot be deleted via API, require Confluence UI):
-`7373166`, `7373171`, `7373167`, `7373169`, `7373165`, `7373164`, `7373170`, `7373168`

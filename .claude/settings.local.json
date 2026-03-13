@@ -23,7 +23,26 @@
       "Bash(echo:*)",
       "mcp__plugin_atlassian_atlassian__getAccessibleAtlassianResources",
       "mcp__plugin_atlassian_atlassian__search",
-      "mcp__plugin_atlassian_atlassian__getVisibleJiraProjects"
+      "mcp__plugin_atlassian_atlassian__getVisibleJiraProjects",
+      "Bash(python:*)",
+      "Bash(cp /tmp/template_unpacked/word/media/image1.png /tmp/optimtech_logo.png)",
+      "Read(//tmp/**)",
+      "Bash(npm:*)",
+      "Bash(NODE_PATH=/opt/homebrew/lib/node_modules node:*)",
+      "Bash(pandoc:*)",
+      "Read(//private/tmp/**)",
+      "Bash(markitdown:*)",
+      "Bash(pip3 list:*)",
+      "Bash(pip3 install:*)",
+      "Bash(PYTHONPATH=\"/Users/myum/Documents/WORK/optimTech/ENS/.agents/skills/docx/scripts/office\" python3:*)",
+      "Bash(export:*)",
+      "Read(//Applications/**)",
+      "Bash(mdfind -name soffice)",
+      "Bash(cp:*)",
+      "Bash(md5:*)",
+      "Bash(python3 .agents/skills/docx/scripts/office/soffice.py --headless --convert-to pdf \"08_GOBERNANZA/Registro Asistencia Presentacion ENS.docx\" --outdir /tmp/ 2>&1 && pdftoppm -jpeg -r 150 \"/tmp/Registro Asistencia Presentacion ENS.pdf\" /tmp/attendance_page)",
+      "Bash(/Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to pdf --outdir /tmp/ \"08_GOBERNANZA/Registro Asistencia Presentacion ENS.docx\" 2>&1 && pdftoppm -jpeg -r 150 \"/tmp/Registro Asistencia Presentacion ENS.pdf\" /tmp/attendance_page)",
+      "Bash(git -C /Users/myum/Documents/WORK/optimTech/ENS remote -v)"
     ]
   },
   "enabledPlugins": {

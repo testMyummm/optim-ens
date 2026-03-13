@@ -92,8 +92,18 @@ The ENSCORP Confluence space is the **living knowledge base** for ENS documentat
 - Stub pages: Content is authored locally as .docx/.xlsx. Confluence page shows metadata, summary, and a reference note.
 - When creating new documents, add entries to both the appropriate local folder AND `confluence_map.md`.
 
+## Claude Code Skills
+
+This repository has Claude Code skills installed for working with Office documents:
+
+- **pptx** — Read, edit, and create PowerPoint presentations (.pptx)
+- **docx** — Read, edit, and create Word documents (.docx)
+- **xlsx** — Read, edit, and create Excel spreadsheets (.xlsx)
+
+Dependencies: `markitdown`, `pptxgenjs`, LibreOffice, Poppler (poppler-utils).
+
 ## Git Notes
 
-- Binary files (PDF, DOCX, XLSX) are tracked directly in git
+- Binary files (PDF, DOCX, XLSX, PPTX) are tracked directly in git
 - `.gitignore` excludes: `.DS_Store`, Office temp files (`~$*`), `.pages` files, and credential files
 - `snapshots/` preserves the original document structure from each certification cycle

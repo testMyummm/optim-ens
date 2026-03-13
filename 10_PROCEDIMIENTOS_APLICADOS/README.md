@@ -34,3 +34,5 @@ Para añadir un nuevo dominio: crear la carpeta correspondiente y añadir el có
 | ID | Título | Dominio | Plataforma | Estado | Última revisión |
 |----|--------|---------|------------|--------|-----------------|
 | PA-BKP-001 | Backup y Restauración Confluence Cloud | BKP | Atlassian | Vigente | 2026-02-22 |
+| PA-ACC-001 | Procedimiento de Alta de Personal | ACC | Microsoft 365, Atlassian, macOS | Vigente | 2026-03-08 |
+| PA-EPT-001 | Adquisición y Configuración MacBook | EPT | macOS | Vigente | 2026-03-08 |
