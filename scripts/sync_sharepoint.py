@@ -152,30 +152,43 @@ def get_embed_url(token: str, drive_id: str, item_id: str) -> str:
 # ── Confluence Map Parsing ──────────────────────────────────────────────────
 
 def parse_confluence_map() -> dict:
-    """Parse confluence_map.md and return {normalized_path: {page_id, title, map_path}} for syncable entries.
+    """Parse confluence_map.md and return {normalized_path: {page_id, title, map_path}} for ALL entries.
 
     Keys are accent-stripped lowercase paths so real filenames (with accents) match map entries (without).
+    Includes both git->confluence and confluence->git entries.
     """
     mapping = {}
     content = CONFLUENCE_MAP.read_text(encoding="utf-8")
-    # Match table rows with local path, title, page ID
-    # Format: | `path` | Title | page_id | type | sync |
+    # Match ALL table rows with local path, title, page ID (any sync direction)
     pattern = re.compile(
-        r"\|\s*`([^`]+)`\s*\|\s*(.+?)\s*\|\s*(\d+)\s*\|\s*(\w+)\s*\|\s*git\s*->\s*confluence\s*\|"
+        r"\|\s*`([^`]+)`\s*\|\s*(.+?)\s*\|\s*(\d+)\s*\|\s*(\w+)\s*\|\s*(?:git\s*->\s*confluence|confluence\s*->\s*git)\s*\|"
     )
     for m in pattern.finditer(content):
         local_path = m.group(1)
         title = m.group(2).strip()
         page_id = m.group(3)
-        norm_key = strip_accents(local_path).lower()
+        norm_key = strip_accents(local_path).lower().rstrip("/")
         mapping[norm_key] = {"page_id": page_id, "title": title, "map_path": local_path}
     return mapping
 
 
 def find_confluence_mapping(confluence_map: dict, file_path: str) -> dict | None:
-    """Look up a file path in the confluence map, accent-insensitive."""
+    """Look up a file path in the confluence map, accent-insensitive.
+
+    Tries exact match first, then walks up parent directories to match
+    folder-level entries (e.g. 06_EVIDENCIAS/personal/ for files inside).
+    """
     norm = strip_accents(file_path).lower()
-    return confluence_map.get(norm)
+    # Try exact file match
+    if norm in confluence_map:
+        return confluence_map[norm]
+    # Try parent directory matches (for folder-level entries like 06_EVIDENCIAS/personal/)
+    parts = Path(norm).parts
+    for i in range(len(parts) - 1, 0, -1):
+        parent = str(Path(*parts[:i])).lower()
+        if parent in confluence_map:
+            return confluence_map[parent]
+    return None
 
 
 # ── Confluence Update ───────────────────────────────────────────────────────
@@ -192,22 +205,29 @@ def get_confluence_page(page_id: str) -> dict:
     return resp.json()
 
 
-def update_confluence_with_embed(page_id: str, embed_url: str, file_name: str, current_body: str, version_number: int) -> None:
-    """Update a Confluence page to include a SharePoint document link."""
-    # The embed block: an info panel with "Documento en SharePoint"
+def update_confluence_with_embed(page_id: str, file_links: list[dict], current_body: str, version_number: int) -> None:
+    """Update a Confluence page to include SharePoint document links.
+
+    file_links: list of {"file_name": str, "embed_url": str}
+    """
+    # Build link list HTML
+    links_html = "".join(
+        f'<p><a href="{fl["embed_url"]}">{fl["file_name"]} — Abrir en SharePoint</a></p>'
+        for fl in file_links
+    )
+
     embed_block = (
         f'<ac:structured-macro ac:name="info">'
         f'<ac:rich-text-body>'
-        f'<p><strong>Documento en SharePoint</strong></p>'
-        f'<p><a href="{embed_url}">{file_name} — Abrir en SharePoint</a></p>'
+        f'<p><strong>Documentos en SharePoint</strong></p>'
+        f'{links_html}'
         f'</ac:rich-text-body>'
         f'</ac:structured-macro>'
     )
 
     # Remove ALL existing SharePoint info panels (prevents duplicates)
-    # Use a greedy pattern that catches any formatting Confluence may add
     panel_pattern = re.compile(
-        r'<ac:structured-macro[^>]*ac:name="info"[^>]*>.*?Documento en SharePoint.*?</ac:structured-macro>',
+        r'<ac:structured-macro[^>]*ac:name="info"[^>]*>.*?Documento[s]? en SharePoint.*?</ac:structured-macro>',
         re.DOTALL,
     )
     cleaned_body = panel_pattern.sub("", current_body).strip()
@@ -218,6 +238,8 @@ def update_confluence_with_embed(page_id: str, embed_url: str, file_name: str, c
     # Get current title
     page_data = get_confluence_page(page_id)
     title = page_data["title"]
+
+    file_names = ", ".join(fl["file_name"] for fl in file_links)
 
     url = f"{CONFLUENCE_BASE_URL}/api/v2/pages/{page_id}"
     payload = {
@@ -230,7 +252,7 @@ def update_confluence_with_embed(page_id: str, embed_url: str, file_name: str, c
         },
         "version": {
             "number": version_number + 1,
-            "message": f"Auto-sync: embedded {file_name} from SharePoint",
+            "message": f"Auto-sync: SharePoint links for {file_names[:80]}",
         },
     }
 
@@ -244,7 +266,7 @@ def update_confluence_with_embed(page_id: str, embed_url: str, file_name: str, c
     if not resp.ok:
         print(f"  ⚠ Confluence API response: {resp.status_code} - {resp.text[:500]}")
     resp.raise_for_status()
-    print(f"  ✓ Confluence page {page_id} updated with embed for {file_name}")
+    print(f"  ✓ Confluence page {page_id} updated with {len(file_links)} SharePoint link(s)")
 
 
 # ── Git Diff ────────────────────────────────────────────────────────────────
@@ -354,8 +376,10 @@ def main():
     drive_id = get_drive_id(token, site_id)
     print(f"Connected to SharePoint site (drive: {drive_id[:20]}...)")
 
-    # Upload and embed each file
+    # Phase 1: Upload all files to SharePoint and collect embed URLs
     results = {"uploaded": 0, "embedded": 0, "errors": []}
+    # Collect links per Confluence page: {page_id: {"links": [...], "mapping": ...}}
+    page_links: dict[str, dict] = {}
 
     for file_path in files_to_sync:
         local_file = REPO_ROOT / file_path
@@ -363,11 +387,10 @@ def main():
             print(f"  ⚠ Skipping {file_path} (file not found)")
             continue
 
-        # Determine SharePoint folder: 2026/<section_folder>
-        parts = Path(file_path).parts
-        if len(parts) > 1:
-            section = parts[0]  # e.g. "01_POLITICAS"
-            remote_folder = f"{SHAREPOINT_FOLDER}/{section}"
+        # Determine SharePoint folder: 2026/<full/subfolder/path>
+        parent = str(Path(file_path).parent)
+        if parent and parent != ".":
+            remote_folder = f"{SHAREPOINT_FOLDER}/{parent}"
         else:
             remote_folder = SHAREPOINT_FOLDER
 
@@ -382,27 +405,37 @@ def main():
             embed_url = get_embed_url(token, drive_id, item_id)
             print(f"  ✓ Embed URL: {embed_url}")
 
-            # Update Confluence if mapped
-            mapping = find_confluence_mapping(confluence_map, file_path)
-            if not args.skip_confluence and mapping:
-                page_id = mapping["page_id"]
-                try:
-                    page = get_confluence_page(page_id)
-                    current_body = page.get("body", {}).get("storage", {}).get("value", "")
-                    version = page.get("version", {}).get("number", 1)
-                    update_confluence_with_embed(
-                        page_id, embed_url, local_file.name, current_body, version
-                    )
-                    results["embedded"] += 1
-                except Exception as e:
-                    print(f"  ⚠ Confluence update failed for {page_id}: {e}")
-                    results["errors"].append(f"Confluence {page_id}: {e}")
-            elif not args.skip_confluence and not mapping:
-                print(f"  ℹ No Confluence mapping for {file_path}")
+            # Collect for Confluence update
+            if not args.skip_confluence:
+                mapping = find_confluence_mapping(confluence_map, file_path)
+                if mapping:
+                    page_id = mapping["page_id"]
+                    if page_id not in page_links:
+                        page_links[page_id] = {"links": [], "mapping": mapping}
+                    page_links[page_id]["links"].append({
+                        "file_name": local_file.name,
+                        "embed_url": embed_url,
+                    })
+                else:
+                    print(f"  ℹ No Confluence mapping for {file_path}")
 
         except Exception as e:
             print(f"  ✗ Error uploading {file_path}: {e}")
             results["errors"].append(f"Upload {file_path}: {e}")
+
+    # Phase 2: Batch-update Confluence pages (one update per page, all links at once)
+    if not args.skip_confluence and page_links:
+        print(f"\n📝 Updating {len(page_links)} Confluence page(s)...")
+        for page_id, data in page_links.items():
+            try:
+                page = get_confluence_page(page_id)
+                current_body = page.get("body", {}).get("storage", {}).get("value", "")
+                version = page.get("version", {}).get("number", 1)
+                update_confluence_with_embed(page_id, data["links"], current_body, version)
+                results["embedded"] += 1
+            except Exception as e:
+                print(f"  ⚠ Confluence update failed for {page_id}: {e}")
+                results["errors"].append(f"Confluence {page_id}: {e}")
 
     # Summary
     print(f"\n{'='*60}")
