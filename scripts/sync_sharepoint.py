@@ -194,31 +194,26 @@ def get_confluence_page(page_id: str) -> dict:
 
 def update_confluence_with_embed(page_id: str, embed_url: str, file_name: str, current_body: str, version_number: int) -> None:
     """Update a Confluence page to include a SharePoint document link."""
-    # Marker comments to find/replace the embed block
-    marker_start = "<!-- sharepoint-embed-start -->"
-    marker_end = "<!-- sharepoint-embed-end -->"
-
-    # Use an info panel with a link — works on all Confluence instances
+    # The embed block: an info panel with "Documento en SharePoint"
     embed_block = (
-        f'{marker_start}\n'
-        f'<ac:structured-macro ac:name="info">\n'
-        f'  <ac:rich-text-body>\n'
-        f'    <p><strong>Documento en SharePoint</strong></p>\n'
-        f'    <p><a href="{embed_url}">{file_name} — Abrir en SharePoint</a></p>\n'
-        f'  </ac:rich-text-body>\n'
-        f'</ac:structured-macro>\n'
-        f'{marker_end}'
+        f'<ac:structured-macro ac:name="info">'
+        f'<ac:rich-text-body>'
+        f'<p><strong>Documento en SharePoint</strong></p>'
+        f'<p><a href="{embed_url}">{file_name} — Abrir en SharePoint</a></p>'
+        f'</ac:rich-text-body>'
+        f'</ac:structured-macro>'
     )
 
-    # Replace existing embed block or prepend
-    if marker_start in current_body:
-        pattern = re.compile(
-            re.escape(marker_start) + r".*?" + re.escape(marker_end),
-            re.DOTALL,
-        )
-        new_body = pattern.sub(embed_block, current_body)
-    else:
-        new_body = embed_block + "\n" + current_body
+    # Remove ALL existing SharePoint info panels (prevents duplicates)
+    # Use a greedy pattern that catches any formatting Confluence may add
+    panel_pattern = re.compile(
+        r'<ac:structured-macro[^>]*ac:name="info"[^>]*>.*?Documento en SharePoint.*?</ac:structured-macro>',
+        re.DOTALL,
+    )
+    cleaned_body = panel_pattern.sub("", current_body).strip()
+
+    # Prepend the single embed block
+    new_body = embed_block + "\n" + cleaned_body
 
     # Get current title
     page_data = get_confluence_page(page_id)
