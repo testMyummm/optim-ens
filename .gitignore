@@ -7,5 +7,12 @@
 # Apple Pages (use PDF/DOCX instead)
 *.pages
 
+# Python
+__pycache__/
+*.pyc
+
+# Environment / secrets
+.env
+
 # Sensitive files
 Credenciales de acceso*

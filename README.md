@@ -31,6 +31,7 @@ This repo includes Claude Code skills for working with Office documents: **docx*
 
 ## Integration
 
-- **Confluence** (ENSCORP space) — living knowledge base for ENS documentation
+- **Git** — single source of truth for all ENS documents
+- **SharePoint** — document hosting; auto-synced from git on push to `main` via GitHub Actions
+- **Confluence** (ENSCORP space) — viewing and collaboration interface with embedded SharePoint links
 - **Jira** — project management and task tracking
-- **Git** — canonical store for formal binary documents (.docx, .xlsx, .pdf, .pptx)

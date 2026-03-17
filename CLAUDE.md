@@ -72,15 +72,15 @@ ENS/
 
 ## Confluence Integration (ENSCORP)
 
-The ENSCORP Confluence space is the **living knowledge base** for ENS documentation. The local git repo is the **canonical store** for formal binary documents (.docx, .xlsx, .pdf).
+Git is the **single source of truth** for all ENS documents. The ENSCORP Confluence space is the **viewing and collaboration interface** — content is synced from git via SharePoint.
 
 ### Content Types
 
-| Type | Source of Truth | Where to Edit | Examples |
-|------|----------------|---------------|----------|
-| **Living** | Confluence | Edit in Confluence; export .docx to git periodically | Procedures (03), Governance (08), SOPs (10), Evidence (06) |
-| **Stub** | Git (.docx/.xlsx/.pdf) | Edit locally; Confluence page has metadata + link | Policies (01), Norms (02), Roles (05), Audit (07), External Regs (09) |
-| **Mixed** | Both | Spreadsheets in git, descriptions in Confluence | Registros (04) |
+| Type | Where to Edit | Confluence Role | Examples |
+|------|---------------|-----------------|----------|
+| **Living** | Edit in Confluence; export .docx to git periodically | Authoring + viewing interface | Procedures (03), Governance (08), SOPs (10), Evidence (06) |
+| **Stub** | Edit locally (.docx/.xlsx/.pdf) | Metadata + SharePoint link | Policies (01), Norms (02), Roles (05), Audit (07), External Regs (09) |
+| **Mixed** | Spreadsheets locally, descriptions in Confluence | Partial authoring | Registros (04) |
 
 ### Mapping File
 
@@ -91,6 +91,45 @@ The ENSCORP Confluence space is the **living knowledge base** for ENS documentat
 - Living pages: Content is authored and maintained in Confluence. Git stores a .docx export for offline/audit purposes.
 - Stub pages: Content is authored locally as .docx/.xlsx. Confluence page shows metadata, summary, and a reference note.
 - When creating new documents, add entries to both the appropriate local folder AND `confluence_map.md`.
+
+## SharePoint Sync
+
+Documents are automatically synced from git to SharePoint, with links embedded in the corresponding Confluence pages. The pipeline is: **git → SharePoint (via Microsoft Graph API) → Confluence embed**.
+
+### Script
+
+`scripts/sync_sharepoint.py` — uploads documents (.docx, .xlsx, .pdf, .pptx) to SharePoint and updates Confluence pages with SharePoint links.
+
+```bash
+# Sync files changed in last commit (default)
+python scripts/sync_sharepoint.py
+
+# Sync ALL mapped documents
+python scripts/sync_sharepoint.py --all
+
+# Sync a specific file
+python scripts/sync_sharepoint.py --file "01_POLITICAS/D01_Politica_de_seguridad.docx"
+
+# Preview what would be synced
+python scripts/sync_sharepoint.py --dry-run
+
+# Upload to SharePoint only (skip Confluence update)
+python scripts/sync_sharepoint.py --skip-confluence
+```
+
+### GitHub Action
+
+The workflow (`.github/workflows/sync-sharepoint.yml`) triggers automatically on push to `main` when document files change. It can also be triggered manually via `workflow_dispatch` with an option to sync all files.
+
+### Required GitHub Secrets
+
+| Secret | Purpose |
+|--------|---------|
+| `AZURE_TENANT_ID` | Azure AD tenant for SharePoint access |
+| `AZURE_CLIENT_ID` | Azure AD app registration client ID |
+| `AZURE_CLIENT_SECRET` | Azure AD app registration client secret |
+| `CONFLUENCE_USER` | Atlassian account email |
+| `CONFLUENCE_API_TOKEN` | Atlassian API token |
 
 ## Claude Code Skills
 
